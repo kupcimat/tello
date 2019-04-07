@@ -1,25 +1,15 @@
 import asyncio
-import configparser
+
+import tello.tello_stats_protocol as tello_stats_protocol
 
 
-class TelloStatsProtocol(asyncio.DatagramProtocol):
-    def __init__(self):
-        self.transport = None
-
-    def connection_made(self, transport):
-        self.transport = transport
-
-    def datagram_received(self, data, addr):
-        print(f'Received {data.decode()} from {addr}')
-
-
-async def main(server_address):
+async def main():
     print('Starting tello stats server')
 
     loop = asyncio.get_running_loop()
 
     transport, protocol = await loop.create_datagram_endpoint(
-        lambda: TelloStatsProtocol(),
+        lambda: tello_stats_protocol.TelloStatsProtocol(),
         local_addr=server_address)
 
     try:
@@ -28,13 +18,9 @@ async def main(server_address):
         transport.close()
 
 
+# Initialize module
+server_address = ('0.0.0.0', 8890)
+
 if __name__ == '__main__':
-    config = configparser.ConfigParser()
-    config.read_file(open('properties.cfg'))
-
-    server_address = (config['stats-server']['ip'], config['stats-server']['port'])
-
     print('Server address:', server_address)
-
-    asyncio.run(
-        main(server_address))
+    asyncio.run(main())
