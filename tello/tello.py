@@ -3,13 +3,13 @@ import asyncio
 from . import tello_protocol
 
 
-async def send_command(command):
+async def send_command(tello_command):
     loop = asyncio.get_running_loop()
     # create callback to report finished status
     done_callback = loop.create_future()
 
     transport, protocol = await loop.create_datagram_endpoint(
-        lambda: tello_protocol.TelloProtocol(command, done_callback),
+        lambda: tello_protocol.TelloProtocol(tello_command.get_command(), done_callback),
         local_addr=client_address,
         remote_addr=tello_address)
 
@@ -24,13 +24,12 @@ async def send_command(command):
         await asyncio.sleep(0)
 
 
-async def send_commands(commands):
-    for command in commands:
-        await send_command(command)
+async def send_commands(tello_commands):
+    for tello_command in tello_commands:
+        await send_command(tello_command)
 
 
 # Initialize module
 client_address = ('0.0.0.0', 8889)
 tello_address = ('192.168.10.1', 8889)
-
-socket_timeout = 2.0
+socket_timeout = 15.0
