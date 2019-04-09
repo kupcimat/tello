@@ -3,9 +3,39 @@ import pytest
 import tello.tello_command as command
 
 
-def test_generic_command():
-    cmd = command.GenericCommand("command string")
-    assert cmd.get_command() == "command string"
+@pytest.mark.parametrize("cmd, expected_command_string", [
+    (command.GenericCommand('custom command'), 'custom command'),
+    (command.Command(), 'command'),
+    (command.Takeoff(), 'takeoff'),
+    (command.Land(), 'land'),
+    (command.StreamOn(), 'streamon'),
+    (command.StreamOff(), 'streamoff'),
+    (command.Emergency(), 'emergency'),
+    (command.Up(100), 'up 100'),
+    (command.Down(100), 'down 100'),
+    (command.Left(100), 'left 100'),
+    (command.Right(100), 'right 100'),
+    (command.Forward(100), 'forward 100'),
+    (command.Back(100), 'back 100'),
+    (command.Clockwise(100), 'cw 100'),
+    (command.CounterClockwise(100), 'ccw 100'),
+    (command.Flip('b'), 'flip b'),
+    (command.Go(20, 30, 40, 50), 'go 20 30 40 50'),
+    (command.SetSpeed(100), 'speed 100'),
+    (command.SetWifi('name', 'password'), 'wifi name password'),
+    (command.GetSpeed(), 'speed?'),
+    (command.GetBattery(), 'battery?'),
+    (command.GetTime(), 'time?'),
+    (command.GetHeight(), 'height?'),
+    (command.GetTemperature(), 'temp?'),
+    (command.GetAttitude(), 'attitude?'),
+    (command.GetBarometer(), 'baro?'),
+    (command.GetAcceleration(), 'acceleration?'),
+    (command.GetDistance(), 'tof?'),
+    (command.GetWifi(), 'wifi?')
+])
+def test_commands(cmd, expected_command_string):
+    assert cmd.get_command() == expected_command_string
 
 
 @pytest.mark.parametrize("distance, expected", [

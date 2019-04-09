@@ -161,7 +161,7 @@ class GetHeight(TelloCommand):
         return f'height?'
 
 
-class GetTemp(TelloCommand):
+class GetTemperature(TelloCommand):
     def get_command(self):
         return f'temp?'
 
