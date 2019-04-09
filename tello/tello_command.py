@@ -89,8 +89,118 @@ class Back(TelloCommand):
         return f'back {self.distance}'
 
 
+class Clockwise(TelloCommand):
+    def __init__(self, degree):
+        self.degree = enforce_degree_range('cw', degree)
+
+    def get_command(self):
+        return f'cw {self.degree}'
+
+
+class CounterClockwise(TelloCommand):
+    def __init__(self, degree):
+        self.degree = enforce_degree_range('ccw', degree)
+
+    def get_command(self):
+        return f'ccw {self.degree}'
+
+
+class Flip(TelloCommand):
+    def __init__(self, direction):
+        self.direction = enforce_flip_direction(direction)
+
+    def get_command(self):
+        return f'flip {self.direction}'
+
+
+class Go(TelloCommand):
+    def __init__(self, x, y, z, speed):
+        self.x = enforce_distance_range('go', x)
+        self.y = enforce_distance_range('go', y)
+        self.z = enforce_distance_range('go', z)
+        self.speed = enforce_speed_range('go', speed)
+
+    def get_command(self):
+        return f'go {self.x} {self.y} {self.z} {self.speed}'
+
+
+class SetSpeed(TelloCommand):
+    def __init__(self, speed):
+        self.speed = enforce_speed_range('speed', speed)
+
+    def get_command(self):
+        return f'speed {self.speed}'
+
+
+class SetWifi(TelloCommand):
+    def __init__(self, ssid, password):
+        self.ssid = ssid
+        self.password = password
+
+    def get_command(self):
+        return f'wifi {self.ssid} {self.password}'
+
+
+class GetSpeed(TelloCommand):
+    def get_command(self):
+        return f'speed?'
+
+
+class GetBattery(TelloCommand):
+    def get_command(self):
+        return f'battery?'
+
+
+class GetTime(TelloCommand):
+    def get_command(self):
+        return f'time?'
+
+
+class GetHeight(TelloCommand):
+    def get_command(self):
+        return f'height?'
+
+
+class GetTemp(TelloCommand):
+    def get_command(self):
+        return f'temp?'
+
+
+class GetAttitude(TelloCommand):
+    def get_command(self):
+        return f'attitude?'
+
+
+class GetBarometer(TelloCommand):
+    def get_command(self):
+        return f'baro?'
+
+
+class GetAcceleration(TelloCommand):
+    def get_command(self):
+        return f'acceleration?'
+
+
+class GetDistance(TelloCommand):
+    def get_command(self):
+        return f'tof?'
+
+
+class GetWifi(TelloCommand):
+    def get_command(self):
+        return f'wifi?'
+
+
 def enforce_distance_range(command, distance):
     return enforce_range(command, distance, 'distance', 20, 500)
+
+
+def enforce_degree_range(command, degree):
+    return enforce_range(command, degree, 'degree', 1, 3600)
+
+
+def enforce_speed_range(command, speed):
+    return enforce_range(command, speed, 'speed', 10, 100)
 
 
 def enforce_range(command, value, value_description, min_value, max_value):
@@ -102,3 +212,12 @@ def enforce_range(command, value, value_description, min_value, max_value):
         return max_value
     else:
         return value
+
+
+def enforce_flip_direction(direction):
+    allowed_values = ['l', 'r', 'f', 'b']
+    if direction not in allowed_values:
+        print(f'command flip: invalid direction {direction}, allowed values are {allowed_values}')
+        return 'l'
+    else:
+        return direction
