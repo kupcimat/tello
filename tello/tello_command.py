@@ -1,6 +1,6 @@
 class TelloCommand:
     def get_command(self):
-        pass
+        raise NotImplementedError()
 
 
 class GenericCommand(TelloCommand):
