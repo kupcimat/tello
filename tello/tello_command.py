@@ -124,6 +124,21 @@ class Go(TelloCommand):
         return f'go {self.x} {self.y} {self.z} {self.speed}'
 
 
+class Curve(TelloCommand):
+    def __init__(self, x1, y1, z1, x2, y2, z2, speed):
+        # TODO Add check for arc radius
+        self.x1 = enforce_distance_range('curve', x1)
+        self.y1 = enforce_distance_range('curve', y1)
+        self.z1 = enforce_distance_range('curve', z1)
+        self.x2 = enforce_distance_range('curve', x2)
+        self.y2 = enforce_distance_range('curve', y2)
+        self.z2 = enforce_distance_range('curve', z2)
+        self.speed = enforce_lower_speed_range('curve', speed)
+
+    def get_command(self):
+        return f'curve {self.x1} {self.y1} {self.z1} {self.x2} {self.y2} {self.z2} {self.speed}'
+
+
 class SetSpeed(TelloCommand):
     def __init__(self, speed):
         self.speed = enforce_speed_range('speed', speed)
@@ -201,6 +216,10 @@ def enforce_degree_range(command, degree):
 
 def enforce_speed_range(command, speed):
     return enforce_range(command, speed, 'speed', 10, 100)
+
+
+def enforce_lower_speed_range(command, speed):
+    return enforce_range(command, speed, 'speed', 10, 60)
 
 
 def enforce_range(command, value, value_description, min_value, max_value):

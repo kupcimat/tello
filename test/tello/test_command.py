@@ -21,6 +21,7 @@ import tello.tello_command as command
     (command.CounterClockwise(100), 'ccw 100'),
     (command.Flip('b'), 'flip b'),
     (command.Go(20, 30, 40, 50), 'go 20 30 40 50'),
+    (command.Curve(20, 30, 40, 50, 60, 70, 50), 'curve 20 30 40 50 60 70 50'),
     (command.SetSpeed(100), 'speed 100'),
     (command.SetWifi('name', 'password'), 'wifi name password'),
     (command.GetSpeed(), 'speed?'),
@@ -72,6 +73,18 @@ def test_enforce_degree_range(degree, expected):
 ])
 def test_enforce_speed_range(speed, expected):
     assert command.enforce_speed_range('command', speed) == expected
+
+
+@pytest.mark.parametrize("speed, expected", [
+    (-100, 10),
+    (0, 10),
+    (10, 10),
+    (50, 50),
+    (60, 60),
+    (100, 60)
+])
+def test_enforce_lower_speed_range(speed, expected):
+    assert command.enforce_lower_speed_range('command', speed) == expected
 
 
 @pytest.mark.parametrize("direction, expected", [
