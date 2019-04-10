@@ -9,4 +9,4 @@ class TelloStatsProtocol(asyncio.DatagramProtocol):
         self.transport = transport
 
     def datagram_received(self, data, addr):
-        print(f'Received {data.decode()} from {addr}')
+        print(f"Received {data.decode()} from {addr}")

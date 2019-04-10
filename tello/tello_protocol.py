@@ -9,18 +9,18 @@ class TelloProtocol(asyncio.DatagramProtocol):
 
     def connection_made(self, transport):
         self.transport = transport
-        print('Send command:', self.command)
+        print("Send command:", self.command)
         self.transport.sendto(self.command.encode())
 
     def datagram_received(self, data, addr):
-        print('Response:', data.decode())
-        print('Close the socket')
+        print("Response:", data.decode())
+        print("Close the socket")
         self.transport.close()
 
     def error_received(self, exc):
-        print('Error:', exc)
+        print("Error:", exc)
 
     def connection_lost(self, exc):
-        print('Connection closed')
+        print("Connection closed")
         if not self.done_callback.cancelled():
             self.done_callback.set_result(True)

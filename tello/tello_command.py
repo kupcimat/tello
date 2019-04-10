@@ -13,96 +13,96 @@ class GenericCommand(TelloCommand):
 
 class Command(TelloCommand):
     def get_command(self):
-        return 'command'
+        return "command"
 
 
 class Takeoff(TelloCommand):
     def get_command(self):
-        return 'takeoff'
+        return "takeoff"
 
 
 class Land(TelloCommand):
     def get_command(self):
-        return 'land'
+        return "land"
 
 
 class StreamOn(TelloCommand):
     def get_command(self):
-        return 'streamon'
+        return "streamon"
 
 
 class StreamOff(TelloCommand):
     def get_command(self):
-        return 'streamoff'
+        return "streamoff"
 
 
 class Emergency(TelloCommand):
     def get_command(self):
-        return 'emergency'
+        return "emergency"
 
 
 class Up(TelloCommand):
     def __init__(self, distance):
-        self.distance = enforce_distance_range('up', distance)
+        self.distance = enforce_distance_range("up", distance)
 
     def get_command(self):
-        return f'up {self.distance}'
+        return f"up {self.distance}"
 
 
 class Down(TelloCommand):
     def __init__(self, distance):
-        self.distance = enforce_distance_range('down', distance)
+        self.distance = enforce_distance_range("down", distance)
 
     def get_command(self):
-        return f'down {self.distance}'
+        return f"down {self.distance}"
 
 
 class Left(TelloCommand):
     def __init__(self, distance):
-        self.distance = enforce_distance_range('left', distance)
+        self.distance = enforce_distance_range("left", distance)
 
     def get_command(self):
-        return f'left {self.distance}'
+        return f"left {self.distance}"
 
 
 class Right(TelloCommand):
     def __init__(self, distance):
-        self.distance = enforce_distance_range('right', distance)
+        self.distance = enforce_distance_range("right", distance)
 
     def get_command(self):
-        return f'right {self.distance}'
+        return f"right {self.distance}"
 
 
 class Forward(TelloCommand):
     def __init__(self, distance):
-        self.distance = enforce_distance_range('forward', distance)
+        self.distance = enforce_distance_range("forward", distance)
 
     def get_command(self):
-        return f'forward {self.distance}'
+        return f"forward {self.distance}"
 
 
 class Back(TelloCommand):
     def __init__(self, distance):
-        self.distance = enforce_distance_range('back', distance)
+        self.distance = enforce_distance_range("back", distance)
 
     def get_command(self):
-        return f'back {self.distance}'
+        return f"back {self.distance}"
 
 
 class Clockwise(TelloCommand):
     def __init__(self, degree):
-        self.degree = enforce_degree_range('cw', degree)
+        self.degree = enforce_degree_range("cw", degree)
 
     def get_command(self):
-        return f'cw {self.degree}'
+        return f"cw {self.degree}"
 
 
 class CounterClockwise(TelloCommand):
     def __init__(self, degree):
-        self.degree = enforce_degree_range('ccw', degree)
+        self.degree = enforce_degree_range("ccw", degree)
 
     def get_command(self):
-        return f'ccw {self.degree}'
+        return f"ccw {self.degree}"
 
 
 class Flip(TelloCommand):
@@ -110,41 +110,41 @@ class Flip(TelloCommand):
         self.direction = enforce_flip_direction(direction)
 
     def get_command(self):
-        return f'flip {self.direction}'
+        return f"flip {self.direction}"
 
 
 class Go(TelloCommand):
     def __init__(self, x, y, z, speed):
-        self.x = enforce_distance_range('go', x)
-        self.y = enforce_distance_range('go', y)
-        self.z = enforce_distance_range('go', z)
-        self.speed = enforce_speed_range('go', speed)
+        self.x = enforce_distance_range("go", x)
+        self.y = enforce_distance_range("go", y)
+        self.z = enforce_distance_range("go", z)
+        self.speed = enforce_speed_range("go", speed)
 
     def get_command(self):
-        return f'go {self.x} {self.y} {self.z} {self.speed}'
+        return f"go {self.x} {self.y} {self.z} {self.speed}"
 
 
 class Curve(TelloCommand):
     def __init__(self, x1, y1, z1, x2, y2, z2, speed):
         # TODO Add check for arc radius
-        self.x1 = enforce_distance_range('curve', x1)
-        self.y1 = enforce_distance_range('curve', y1)
-        self.z1 = enforce_distance_range('curve', z1)
-        self.x2 = enforce_distance_range('curve', x2)
-        self.y2 = enforce_distance_range('curve', y2)
-        self.z2 = enforce_distance_range('curve', z2)
-        self.speed = enforce_lower_speed_range('curve', speed)
+        self.x1 = enforce_distance_range("curve", x1)
+        self.y1 = enforce_distance_range("curve", y1)
+        self.z1 = enforce_distance_range("curve", z1)
+        self.x2 = enforce_distance_range("curve", x2)
+        self.y2 = enforce_distance_range("curve", y2)
+        self.z2 = enforce_distance_range("curve", z2)
+        self.speed = enforce_lower_speed_range("curve", speed)
 
     def get_command(self):
-        return f'curve {self.x1} {self.y1} {self.z1} {self.x2} {self.y2} {self.z2} {self.speed}'
+        return f"curve {self.x1} {self.y1} {self.z1} {self.x2} {self.y2} {self.z2} {self.speed}"
 
 
 class SetSpeed(TelloCommand):
     def __init__(self, speed):
-        self.speed = enforce_speed_range('speed', speed)
+        self.speed = enforce_speed_range("speed", speed)
 
     def get_command(self):
-        return f'speed {self.speed}'
+        return f"speed {self.speed}"
 
 
 class SetWifi(TelloCommand):
@@ -153,90 +153,90 @@ class SetWifi(TelloCommand):
         self.password = password
 
     def get_command(self):
-        return f'wifi {self.ssid} {self.password}'
+        return f"wifi {self.ssid} {self.password}"
 
 
 class GetSpeed(TelloCommand):
     def get_command(self):
-        return f'speed?'
+        return f"speed?"
 
 
 class GetBattery(TelloCommand):
     def get_command(self):
-        return f'battery?'
+        return f"battery?"
 
 
 class GetTime(TelloCommand):
     def get_command(self):
-        return f'time?'
+        return f"time?"
 
 
 class GetHeight(TelloCommand):
     def get_command(self):
-        return f'height?'
+        return f"height?"
 
 
 class GetTemperature(TelloCommand):
     def get_command(self):
-        return f'temp?'
+        return f"temp?"
 
 
 class GetAttitude(TelloCommand):
     def get_command(self):
-        return f'attitude?'
+        return f"attitude?"
 
 
 class GetBarometer(TelloCommand):
     def get_command(self):
-        return f'baro?'
+        return f"baro?"
 
 
 class GetAcceleration(TelloCommand):
     def get_command(self):
-        return f'acceleration?'
+        return f"acceleration?"
 
 
 class GetDistance(TelloCommand):
     def get_command(self):
-        return f'tof?'
+        return f"tof?"
 
 
 class GetWifi(TelloCommand):
     def get_command(self):
-        return f'wifi?'
+        return f"wifi?"
 
 
 def enforce_distance_range(command, distance):
-    return enforce_range(command, distance, 'distance', 20, 500)
+    return enforce_range(command, distance, "distance", 20, 500)
 
 
 def enforce_degree_range(command, degree):
-    return enforce_range(command, degree, 'degree', 1, 3600)
+    return enforce_range(command, degree, "degree", 1, 3600)
 
 
 def enforce_speed_range(command, speed):
-    return enforce_range(command, speed, 'speed', 10, 100)
+    return enforce_range(command, speed, "speed", 10, 100)
 
 
 def enforce_lower_speed_range(command, speed):
-    return enforce_range(command, speed, 'speed', 10, 60)
+    return enforce_range(command, speed, "speed", 10, 60)
 
 
 def enforce_range(command, value, value_description, min_value, max_value):
     if value < min_value:
-        print(f'command {command}: invalid {value_description} {value}, allowed range is [{min_value}-{max_value}]')
+        print(f"command {command}: invalid {value_description} {value}, allowed range is [{min_value}-{max_value}]")
         return min_value
     elif value > max_value:
-        print(f'command {command}: invalid {value_description} {value}, allowed range is [{min_value}-{max_value}]')
+        print(f"command {command}: invalid {value_description} {value}, allowed range is [{min_value}-{max_value}]")
         return max_value
     else:
         return value
 
 
 def enforce_flip_direction(direction):
-    allowed_values = ['l', 'r', 'f', 'b']
+    allowed_values = ["l", "r", "f", "b"]
     if direction not in allowed_values:
-        print(f'command flip: invalid direction {direction}, allowed values are {allowed_values}')
-        return 'l'
+        print(f"command flip: invalid direction {direction}, allowed values are {allowed_values}")
+        return "l"
     else:
         return direction

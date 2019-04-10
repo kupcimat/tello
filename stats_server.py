@@ -4,7 +4,7 @@ import tello.tello_stats_protocol as tello_stats_protocol
 
 
 async def main():
-    print('Starting tello stats server')
+    print("Starting tello stats server")
 
     loop = asyncio.get_running_loop()
 
@@ -19,8 +19,8 @@ async def main():
 
 
 # Initialize module
-server_address = ('0.0.0.0', 8890)
+server_address = ("0.0.0.0", 8890)
 
-if __name__ == '__main__':
-    print('Server address:', server_address)
+if __name__ == "__main__":
+    print("Server address:", server_address)
     asyncio.run(main())

@@ -16,7 +16,7 @@ async def send_command(tello_command):
     try:
         await asyncio.wait_for(done_callback, timeout=socket_timeout)
     except asyncio.TimeoutError:
-        print('Network timeout, close the socket')
+        print("Network timeout, close the socket")
     finally:
         transport.close()
         # workaround for asynchronous socket close
@@ -30,6 +30,6 @@ async def send_commands(tello_commands):
 
 
 # Initialize module
-client_address = ('0.0.0.0', 8889)
-tello_address = ('192.168.10.1', 8889)
+client_address = ("0.0.0.0", 8889)
+tello_address = ("192.168.10.1", 8889)
 socket_timeout = 15.0
