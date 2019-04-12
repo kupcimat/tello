@@ -1,6 +1,6 @@
 import asyncio
 
-from . import tello_protocol
+from tello.tello_protocol import TelloProtocol
 
 
 async def send_command(tello_command):
@@ -9,7 +9,7 @@ async def send_command(tello_command):
     done_callback = loop.create_future()
 
     transport, protocol = await loop.create_datagram_endpoint(
-        lambda: tello_protocol.TelloProtocol(tello_command.get_command(), done_callback),
+        lambda: TelloProtocol(tello_command.get_command(), done_callback),
         local_addr=client_address,
         remote_addr=tello_address)
 

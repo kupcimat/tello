@@ -1,6 +1,6 @@
 import asyncio
 
-import tello.tello_stats_protocol as tello_stats_protocol
+from tello.tello_stats_protocol import TelloStatsProtocol
 
 
 async def main():
@@ -9,7 +9,7 @@ async def main():
     loop = asyncio.get_running_loop()
 
     transport, protocol = await loop.create_datagram_endpoint(
-        lambda: tello_stats_protocol.TelloStatsProtocol(),
+        lambda: TelloStatsProtocol(),
         local_addr=server_address)
 
     try:
