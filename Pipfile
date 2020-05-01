@@ -7,8 +7,13 @@ verify_ssl = true
 pytest = "*"
 
 [packages]
+cvlib = "*"
 numpy = "*"
 opencv-python = "*"
+tensorflow = "*"
 
 [requires]
 python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true
