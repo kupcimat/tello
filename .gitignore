@@ -1,6 +1,3 @@
-# Python
-.python-version
-__pycache__
-
-# IDEA
-.idea
+.idea/
+.pytest_cache/
+libh264decoder.so

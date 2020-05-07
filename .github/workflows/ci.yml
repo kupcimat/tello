@@ -18,6 +18,8 @@ jobs:
       - name: Install Dependencies
         run: |
           pipenv install --dev
+          # TODO remove workaround when new pipenv is released
+          export PIPENV_PYUP_API_KEY=""
           pipenv check
       - name: Run Lint
         run: |
