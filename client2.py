@@ -17,6 +17,8 @@ video_socket.bind(("0.0.0.0", 11111))
 logging.info("Initialize threads")
 cmd_thread = tello.ReceiveCmdThread(cmd_socket)
 cmd_thread.start()
+video_thread = tello.ReceiveVideoThread(video_socket)
+video_thread.start()
 
 logging.info("Initialize tello")
 tello.send_cmd(cmd_socket, cmd.command())
