@@ -1,6 +1,7 @@
 import logging
 import socket
 
+import kupcimat.command as cmd
 import kupcimat.tello as tello
 
 logging.basicConfig(level=logging.DEBUG)
@@ -13,8 +14,8 @@ video_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 video_socket.bind(("0.0.0.0", 11111))
 
 logging.info("Initialize tello")
-logging.info(tello.send_cmd(cmd_socket, "command"))
-logging.info(tello.send_cmd(cmd_socket, "streamon"))
+logging.info(tello.send_cmd(cmd_socket, cmd.command()))
+logging.info(tello.send_cmd(cmd_socket, cmd.stream_on()))
 
-logging.info(tello.send_cmd(cmd_socket, "temp?"))
-logging.info(tello.send_cmd(cmd_socket, "battery?"))
+logging.info(tello.send_cmd(cmd_socket, cmd.get_temperature()))
+logging.info(tello.send_cmd(cmd_socket, cmd.get_battery()))
