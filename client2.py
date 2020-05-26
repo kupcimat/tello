@@ -1,7 +1,7 @@
 import logging
 import socket
 
-import kupcimat.command as cmd
+import kupcimat.control as control
 import kupcimat.tello as tello
 import kupcimat.video as video
 
@@ -18,16 +18,12 @@ cmd_thread = tello.ReceiveCmdThread(cmd_socket)
 cmd_thread.start()
 video_thread = tello.ReceiveVideoThread(video_socket)
 video_thread.start()
-
-logging.info("Initialize tello")
-tello.send_cmd(cmd_socket, cmd.command())
-tello.send_cmd(cmd_socket, cmd.stream_on())
-
-tello.send_cmd(cmd_socket, cmd.get_temperature())
-tello.send_cmd(cmd_socket, cmd.get_battery())
+control_thread = control.ControlThread(cmd_socket)
+control_thread.start()
 
 while True:
     frame = video_thread.frame
     if frame is not None:
         updated_frame, mid_points = video.detect_faces(frame)
+        control_thread.mid_points = mid_points
         video.render_frame(updated_frame)
