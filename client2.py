@@ -1,10 +1,9 @@
 import logging
 import socket
 
-import time
-
 import kupcimat.command as cmd
 import kupcimat.tello as tello
+import kupcimat.video as video
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -27,4 +26,7 @@ tello.send_cmd(cmd_socket, cmd.stream_on())
 tello.send_cmd(cmd_socket, cmd.get_temperature())
 tello.send_cmd(cmd_socket, cmd.get_battery())
 
-time.sleep(10)
+while True:
+    frame = video_thread.frame
+    if frame is not None:
+        video.render_frame(video.detect_faces(frame))
