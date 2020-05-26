@@ -3,6 +3,8 @@ import cvlib as cv
 import libh264decoder
 import numpy as np
 
+import kupcimat.util as util
+
 h264_decoder = libh264decoder.H264Decoder()
 
 
@@ -20,13 +22,14 @@ def decode_frames(packet_data):
 
 
 def detect_faces(frame):
+    mid_points = []
     (faces, confidences) = cv.detect_face(frame)
     # draw face rectangles
     for face in faces:
-        start_point = (face[0], face[1])
-        end_point = (face[2], face[3])
-        cv2.rectangle(frame, start_point, end_point, color=(0, 255, 0), thickness=2)
-    return frame
+        (x1, y1, x2, y2) = face
+        mid_points.append(util.find_mid_point(x1, y1, x2, y2))
+        cv2.rectangle(frame, (x1, y1), (x2, y2), color=(0, 255, 0), thickness=2)
+    return frame, mid_points
 
 
 def render_frame(frame):

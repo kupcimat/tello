@@ -29,4 +29,5 @@ tello.send_cmd(cmd_socket, cmd.get_battery())
 while True:
     frame = video_thread.frame
     if frame is not None:
-        video.render_frame(video.detect_faces(frame))
+        updated_frame, mid_points = video.detect_faces(frame)
+        video.render_frame(updated_frame)
