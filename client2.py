@@ -22,8 +22,12 @@ control_thread = control.ControlThread(cmd_socket)
 control_thread.start()
 
 while True:
-    frame = video_thread.frame
-    if frame is not None:
-        updated_frame, mid_points = video.detect_faces(frame)
-        control_thread.mid_points = mid_points
-        video.render_frame(updated_frame)
+    try:
+        frame = video_thread.frame
+        if frame is not None:
+            updated_frame, mid_points = video.detect_faces(frame)
+            control_thread.mid_points = mid_points
+            video.render_frame(updated_frame)
+    except KeyboardInterrupt:
+        control_thread.event.set()
+        control_thread.join()

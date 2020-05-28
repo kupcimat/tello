@@ -8,6 +8,7 @@ import kupcimat.util as util
 h264_decoder = libh264decoder.H264Decoder()
 
 
+# TODO add types
 def decode_frames(packet_data):
     frames = []
     # decode and reshape data into frames
